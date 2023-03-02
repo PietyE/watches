@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - logs:/app/logs
+      - .:/app
+      - /app/node_modules
+
+    depends_on:
+      - mongodb
+
+volumes:
+  data:
+  logs:
+
+
+
+
